@@ -182,7 +182,7 @@
 						<configuration>
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://db2:5432/mydatabase</url>
+								<url>jdbc:postgresql://postgres_db:5432/mydatabase</url>
 								<user>myuser</user>
 								<password>secret</password>
 							</jdbc>

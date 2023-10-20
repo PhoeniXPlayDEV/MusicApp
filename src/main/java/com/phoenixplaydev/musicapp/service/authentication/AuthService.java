@@ -13,7 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService implements GraphQLQueryResolver, GraphQLMutationResolver {
+public class AuthService {
 
     @Autowired
     private AuthenticationManager authenticationManager;

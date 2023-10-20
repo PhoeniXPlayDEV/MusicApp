@@ -34,9 +34,14 @@ public class CredentialsInput implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(role.equals("User"))
+        System.out.println(role);
+        if(role.equals("User")) {
             return Set.of(new SimpleGrantedAuthority(role));
-        return Set.of(new GrantedAuthority[]{new SimpleGrantedAuthority("User"), new SimpleGrantedAuthority("Admin")});
+        }
+        return Set.of(new GrantedAuthority[]{
+                new SimpleGrantedAuthority("User"),
+                new SimpleGrantedAuthority("Admin")
+        });
     }
 
     @Override

@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class SongResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
+public class SongResolver {
 
     @Autowired
     ISongService songService;

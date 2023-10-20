@@ -1,6 +1,7 @@
 package com.phoenixplaydev.musicapp.service.user;
 
 import com.phoenixplaydev.musicapp.model.tables.pojos.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 

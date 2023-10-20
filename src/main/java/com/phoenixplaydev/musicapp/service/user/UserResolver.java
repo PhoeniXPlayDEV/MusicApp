@@ -11,7 +11,9 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,7 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class UserResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
+public class UserResolver {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -42,7 +44,10 @@ public class UserResolver implements GraphQLQueryResolver, GraphQLMutationResolv
 
     @Secured("Admin")
     @GraphQLQuery(name = "getAllUsers")
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getAuthorities().stream().noneMatch(a -> a.getAuthority().equals("Admin")))
+            throw new AccessDeniedException("Access denied!");
         return userService.getAllUsers();
     }
 
@@ -89,7 +94,6 @@ public class UserResolver implements GraphQLQueryResolver, GraphQLMutationResolv
      * Next are liked Songs *
      ************************/
 
-    @Secured("Admin")
     @GraphQLQuery(name = "getUserLikedSongs")
     public List<Song> getUserLikedSongs(@GraphQLArgument(name = "id") Long id) {
         return userService.getLikedSongs(id);

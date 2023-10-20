@@ -1,9 +1,10 @@
 version: "2.2"
 
 services:
-  postgres:
+  database:
     image: postgres:15.3
-    container_name: db2
+    container_name: db
+    hostname: postgres_db
     ports:
       - "5432:5432"
     environment:
@@ -15,13 +16,14 @@ services:
       - ./db/insert_data.sql:/docker-entrypoint-initdb.d/insert_data.sql
     networks:
       - musicapp_network
-  spring:
+  spring_server:
     build:
       context: ./
+    container_name: musicapp_server
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - database
     networks:
       - musicapp_network
 

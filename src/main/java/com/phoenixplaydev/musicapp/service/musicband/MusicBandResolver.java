@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MusicBandResolver implements GraphQLQueryResolver, GraphQLMutationResolver {
+public class MusicBandResolver {
 
     @Autowired
     private IMusicBandService musicBandService;
