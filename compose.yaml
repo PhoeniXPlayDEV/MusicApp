@@ -1,0 +1,29 @@
+version: "2.2"
+
+services:
+  postgres:
+    image: postgres:15.3
+    container_name: db2
+    ports:
+      - "5432:5432"
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    volumes:
+      - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./db/insert_data.sql:/docker-entrypoint-initdb.d/insert_data.sql
+    networks:
+      - musicapp_network
+  spring:
+    build:
+      context: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - musicapp_network
+
+networks:
+  musicapp_network:
