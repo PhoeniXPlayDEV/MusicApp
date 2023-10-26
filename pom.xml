@@ -48,16 +48,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>3.1.4</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security</groupId>-->
-<!--			<artifactId>spring-security-core</artifactId>-->
-<!--			<version>6.1.5</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security</groupId>-->
-<!--			<artifactId>spring-security-config</artifactId>-->
-<!--			<version>6.1.5</version>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
@@ -83,11 +73,6 @@
 			<artifactId>spqr</artifactId>
 			<version>0.12.3</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>io.leangen.graphql</groupId>-->
-<!--			<artifactId>graphql-spqr-spring-boot-starter</artifactId>-->
-<!--			<version>1.0.0</version>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-java-tools</artifactId>
@@ -133,42 +118,10 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!--Additional-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.30</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.5</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
 			<plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>

@@ -1,35 +1,30 @@
 package com.phoenixplaydev.musicapp.configuration.security;
 
-import com.phoenixplaydev.musicapp.controller.GraphQLController;
-import graphql.GraphQL;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.annotation.Before;
 import org.jetbrains.annotations.NotNull;
-import org.jooq.exception.NoDataFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService credentials;
+
+    public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService credentials) {
+        this.jwtService = jwtService;
+        this.credentials = credentials;
+    }
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request,
@@ -37,7 +32,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NotNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        if (request.getServletPath().contains("/auth") ) {
+        if( request.getServletPath().contains("/auth") ||
+                request.getServletPath().contains("/graphql_inspect")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -46,6 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Authorization failed!");
             filterChain.doFilter(request, response);
             return;
         }

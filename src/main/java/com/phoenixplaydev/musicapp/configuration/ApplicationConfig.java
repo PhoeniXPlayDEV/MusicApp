@@ -2,8 +2,7 @@ package com.phoenixplaydev.musicapp.configuration;
 
 import com.phoenixplaydev.musicapp.configuration.security.CredentialsInput;
 import com.phoenixplaydev.musicapp.model.tables.pojos.User;
-import com.phoenixplaydev.musicapp.service.user.IUserService;
-import lombok.RequiredArgsConstructor;
+import com.phoenixplaydev.musicapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@RequiredArgsConstructor
 public class ApplicationConfig {
 
     @Autowired
-    private IUserService userService;
+    private UserRepository userService;
 
     @Bean
     public UserDetailsService userDetailsService() {
